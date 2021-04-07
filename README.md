@@ -4,3 +4,6 @@ how to install:<br />
 4.go to clone folder and run app with cmd: node main.js<br />
 5.open sandbox in browser: http://localhost/sandbox<br />
 6.log stock can be found in logstocks collection<br />
+
+Note:
+this API still minus data validation & request auth
