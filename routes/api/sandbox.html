@@ -97,6 +97,7 @@ DATA:
 			data_.product_id = $("#product_id").val();
 			data_.product_name = $("#product_name").val();
 			data_.product_publish_status = $("#product_publish_status").val();
+			if($("#product_id").val()!=""&&$("#product_name").val()!=""&&$("#product_publish_status").val()!=""){
 			$.ajax({
 				type: "POST",
 				url: 'http://localhost/new_product',
@@ -105,12 +106,14 @@ DATA:
 					$("#rs").html("<pre>"+JSON.stringify(result)+"</pre>");
 				}
 			});
+			}
 		}else if(param_=="add_new_stock"){
 		product_id
 			var data_={};
 			data_.stock_id = $("#stock_id").val();
 			data_.product_id = $("#product_id2").val();
 			data_.quantity_available = $("#quantity_available").val();
+			if($("#stock_id").val()!=""&&$("#product_id2").val()!=""&&$("#quantity_available").val()!=""){
 			$.ajax({
 				type: "POST",
 				url: 'http://localhost/new_stock',
@@ -119,9 +122,11 @@ DATA:
 					$("#rs").html("<pre>"+JSON.stringify(result)+"</pre>");
 				}
 			});
+			}
 		}else if(param_=="Check_Product_Stock"){
 			var data_={};
 			data_.product_id = $("#product_id3").val();
+			if($("#product_id3").val()!=""){
 			$.ajax({
 				type: "POST",
 				url: 'http://localhost/check_stock',
@@ -130,10 +135,12 @@ DATA:
 					$("#rs").html("<pre>"+JSON.stringify(result)+"</pre>");
 				}
 			});
+			}
 		}else if(param_ == "Deducted_Stock"){
 			var data_={};
 			data_.product_id = $("#product_id4").val();
 			data_.qty = $("#qty").val();
+			if($("#product_id4").val()!=""&&$("#qty").val()!=""){
 			$.ajax({
 				type: "POST",
 				url: 'http://localhost/deducted_stock',
@@ -142,6 +149,7 @@ DATA:
 					$("#rs").html("<pre>"+JSON.stringify(result)+"</pre>");
 				}
 			});
+			}
 		}
 	}
 	function menu(id){
