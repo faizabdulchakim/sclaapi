@@ -1,0 +1,152 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<h1>Sandbox</h1>
+
+<ul>
+	<li onclick="menu(1)"><a href="javascript:void(0)">Add New Product</a></li>
+	<li onclick="menu(2)"><a href="javascript:void(0)">Add New Stock</a></li>
+	<li onclick="menu(3)"><a href="javascript:void(0)">Check Product Stock</a></li>
+	<li onclick="menu(4)"><a href="javascript:void(0)">Deducted Stock</a></li>
+	
+</ul>
+<hr/>
+
+<div class="stage" id="stage1" style="display:none">
+	<h3>Add New Product</h3>
+	<b>Request:</b>
+<pre>
+URL: http://localhost/new_product
+METHOD: POST
+DATA:
+	product_id (number)
+	product_name (string)
+	product_publish_status (true / false)
+</pre>
+	<div>
+	<b>Example:</b><br/>
+	product_id:<br/><input type="number" id="product_id" /><br/>
+	product_name:<br/><input type="text" id="product_name" /><br/>
+	product_publish_status:<br/><select id="product_publish_status">
+	<option value="true">TRUE</option>
+	<option value="false">FALSE</option>
+	</select><br/><br/>
+	<input type="button" value="submit" onclick="call_api('add_new_product')" /><br/><br/>
+	</div>
+</div>
+<div class="stage" id="stage2" style="display:none;">
+	<h3>Add New Stock</h3>
+	<b>Request:</b>
+<pre>
+URL: http://localhost/new_stock
+METHOD: POST
+DATA:
+	stock_id (number)
+	product_id (number)
+	quantity_available (number)
+</pre>
+	<div>
+	<b>Example:</b><br/>
+	stock_id:<br/><input type="number" id="stock_id" /><br/>
+	product_id:<br/><input type="number" id="product_id2" /><br/>
+	quantity_available:<br/><input type="number" id="quantity_available" /><br/>
+	<br/>
+	<input type="button" value="submit" onclick="call_api('add_new_stock')" /><br/><br/>
+	</div>
+</div>
+<div class="stage" id="stage3" style="display:none">
+	<h3>Check Product Stock</h3>
+	<b>Request:</b>
+<pre>
+URL: http://localhost/check_stock
+METHOD: POST
+DATA:
+	product_id (number)
+</pre>
+	<div>
+	<b>Example:</b><br/>
+	product_id:<br/><input type="number" id="product_id3" /><br/>
+	<br/>
+	<input type="button" value="submit" onclick="call_api('Check_Product_Stock')" /><br/><br/>
+	</div>
+</div>
+<div class="stage"  id="stage4">
+	<h3>Deducted Stock</h3>
+	<b>Request:</b>
+<pre>
+URL: http://localhost/deducted_stock
+METHOD: POST
+DATA:
+	product_id (number)
+	qty (number)
+</pre>
+	<div>
+	<b>Example:</b><br/>
+	product_id:<br/><input type="number" id="product_id4" /><br/>
+	qty:<br/><input type="number" id="qty" /><br/>
+	<br/>
+	<input type="button" value="submit" onclick="call_api('Deducted_Stock')" /><br/><br/>
+	</div>
+</div>
+	<b>Response:</b>
+	<div id="rs"></div>
+
+
+<script>
+	function call_api(param_){
+		if(param_ == "add_new_product"){
+			var data_={};
+			data_.product_id = $("#product_id").val();
+			data_.product_name = $("#product_name").val();
+			data_.product_publish_status = $("#product_publish_status").val();
+			$.ajax({
+				type: "POST",
+				url: 'http://localhost/new_product',
+				data: data_,
+				success: function(result) {
+					$("#rs").html("<pre>"+JSON.stringify(result)+"</pre>");
+				}
+			});
+		}else if(param_=="add_new_stock"){
+		product_id
+			var data_={};
+			data_.stock_id = $("#stock_id").val();
+			data_.product_id = $("#product_id2").val();
+			data_.quantity_available = $("#quantity_available").val();
+			$.ajax({
+				type: "POST",
+				url: 'http://localhost/new_stock',
+				data: data_,
+				success: function(result) {
+					$("#rs").html("<pre>"+JSON.stringify(result)+"</pre>");
+				}
+			});
+		}else if(param_=="Check_Product_Stock"){
+			var data_={};
+			data_.product_id = $("#product_id3").val();
+			$.ajax({
+				type: "POST",
+				url: 'http://localhost/check_stock',
+				data: data_,
+				success: function(result) {
+					$("#rs").html("<pre>"+JSON.stringify(result)+"</pre>");
+				}
+			});
+		}else if(param_ == "Deducted_Stock"){
+			var data_={};
+			data_.product_id = $("#product_id4").val();
+			data_.qty = $("#qty").val();
+			$.ajax({
+				type: "POST",
+				url: 'http://localhost/deducted_stock',
+				data: data_,
+				success: function(result) {
+					$("#rs").html("<pre>"+JSON.stringify(result)+"</pre>");
+				}
+			});
+		}
+	}
+	function menu(id){
+		$(".stage").hide();
+		$("#stage"+id).show();
+	}
+	menu(1);
+</script>

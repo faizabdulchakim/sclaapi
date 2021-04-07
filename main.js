@@ -7,6 +7,7 @@ const new_product				= require("./routes/api/new_product");
 const new_stock					= require("./routes/api/new_stock");
 const check_stock				= require("./routes/api/check_stock_product");
 const deducted_stock			= require("./routes/api/deducted_stock");
+const sandbox					= require("./routes/api/sandbox");
 
 var app							= express();
 var corsOptions = {
@@ -28,6 +29,7 @@ app.use(new_product);
 app.use(new_stock);
 app.use(check_stock);
 app.use(deducted_stock);
+app.use(sandbox);
 
 app.listen(80,function(){console.log("API SERVER START!")});
 //app.listen(process.env.PORT,function(){console.log("API SERVER START!")});
