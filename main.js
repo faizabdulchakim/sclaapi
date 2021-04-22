@@ -9,6 +9,12 @@ const check_stock				= require("./routes/api/check_stock_product");
 const deducted_stock			= require("./routes/api/deducted_stock");
 const sandbox					= require("./routes/api/sandbox");
 
+fs = require('fs');
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+const customCss = fs.readFileSync((process.cwd()+"/swagger.css"), 'utf8');
+
 var app							= express();
 var corsOptions = {
 	origin: function(origin, callback){
@@ -25,6 +31,7 @@ app.all("*",cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {customCss}));
 app.use(new_product);
 app.use(new_stock);
 app.use(check_stock);
